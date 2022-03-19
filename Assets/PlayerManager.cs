@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rb;
     public GameManager gameManager;
     public SpriteRenderer spriteRenderer;
+    bool y_axis_locked;
+    [SerializeField] private GameObject fireball;
 
 
     // Start is called before the first frame update
@@ -15,33 +17,60 @@ public class PlayerManager : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();    
         rb = GetComponent<Rigidbody2D>();
+        y_axis_locked = false;  
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        // RESIZING
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+    {
+        if (!y_axis_locked)
         {
-            rb.velocity = Vector2.up * velocity;
-            transform.localScale = new Vector3(0.8f, 1.2f, transform.localScale.z);
-        } 
-        if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.W)|| Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            transform.localScale = new Vector3(1f, 1f, transform.localScale.z);
+            // RESIZING
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                rb.velocity = Vector2.up * velocity;
+                transform.localScale = new Vector3(0.8f, 1.2f, transform.localScale.z);
+            }
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                transform.localScale = new Vector3(1f, 1f, transform.localScale.z);
+            }
+
+            // Down arrow
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            {
+                rb.velocity = Vector2.down * velocity * 1f;
+                transform.localScale = new Vector3(1.2f, 0.8f, transform.localScale.z);
+            }
+            // Down arrow
+            if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S))
+            {
+                transform.localScale = new Vector3(1f, 1f, transform.localScale.z);
+            }
         }
 
-        // Down arrow
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        // Right arrow (zoom)
+        if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D))
         {
-            rb.velocity = Vector2.down * velocity * 1f;
-            transform.localScale = new Vector3(1.2f,0.8f, transform.localScale.z); 
+            y_axis_locked = true;
+            rb.velocity = Vector2.zero;
+            transform.localScale = new Vector3(1.1f, 0.9f, transform.localScale.z);
+            rb.gravityScale = 0;
         }
-        // Down arrow
-        if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S))
+
+        if(Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D))
         {
+            y_axis_locked = false;
             transform.localScale = new Vector3(1f, 1f, transform.localScale.z);
+            rb.gravityScale = 0.25f;
         }
+
+        // Space bar (fireball)
+        if (!gameManager.GameStopped && Input.GetKeyDown(KeyCode.Space)) 
+        {
+            Instantiate(fireball,new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        }
+
 
 
         // Close to out of bounds
@@ -64,6 +93,9 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameManager.EndOfGame();     
+        if (!collision.CompareTag("fireball"))
+        { 
+            gameManager.EndOfGame();     
+        }
     }
 }

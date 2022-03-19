@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public int HighScore;
     public int TargetScore;
     public float speedOfObstacles;
-    bool GameStopped;
+    public bool GameStopped;
     public PlayerManager playerManager;
     public Obstacle obstacle;
     public TMPro.TextMeshProUGUI UIScore;
@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
         {
             StartOfGame();   
         }
+
+        if (HighScore >= TargetScore)
+        {
+            EndOfGame();
+        }
     }
 
     public void StartOfGame()
@@ -43,9 +48,13 @@ public class GameManager : MonoBehaviour
         GameStopped = false;
         playerManager.spriteRenderer.color = Color.white;
         playerManager.transform.position = new Vector3(-2.8f, 1.5f, 0);
-        obstacle.transform.position = new Vector3(3.8f,-1f,0);
+        ObstacleCreator();
     }
 
+    public void ObstacleCreator()
+    {
+        Instantiate(obstacle);
+    }
     public void EndOfGame()
     {
         Time.timeScale = 0;
