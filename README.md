@@ -1,5 +1,7 @@
 # flappy-dragon
 
+Entry for [Arcade Jam](https://thearcadevaults.org.uk/arcade-jam)
+
 ## BRIEF
 
 The game will serve as a simulation of an arcade redemption game (a game that vends tickets)
