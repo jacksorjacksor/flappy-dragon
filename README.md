@@ -1,4 +1,4 @@
-# flappy-dragon
+# Flappy Dragon
 
 Entry for [Arcade Jam](https://thearcadevaults.org.uk/arcade-jam)
 
