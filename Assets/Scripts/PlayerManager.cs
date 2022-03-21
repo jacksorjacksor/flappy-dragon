@@ -71,31 +71,19 @@ public class PlayerManager : MonoBehaviour
             Instantiate(fireball,new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         }
 
-
-
-        // Close to out of bounds
-        if (transform.position.y > 2f || transform.position.y < -2f)
-        {
-            spriteRenderer.color = Color.red;    
-        } else
-        {
-            spriteRenderer.color = Color.white;
-        }
-
-
         // Out Of Bounds
-        if (transform.position.y>2.8f || transform.position.y<-2.5f)
+        if (transform.position.y>2f)
         {
-            gameManager.EndOfGame();
+            transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
+        }
+        if (transform.position.y<-2f)
+        {
+            transform.position = new Vector3(transform.position.x, -2f, transform.position.z);
+        }
+        if (transform.position.x != -2.8f)
+        {
+            transform.position = new Vector2(-2.8f, transform.position.y);
         }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("fireball"))
-        { 
-            gameManager.EndOfGame();     
-        }
     }
 }
