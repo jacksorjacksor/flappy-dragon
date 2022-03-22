@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        // Right arrow (zoom)
+        // Right arrow (zoom) <- possibly being removed.
         if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D))
         {
             y_axis_locked = true;
@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
             rb.gravityScale = 0.25f;
         }
 
-        // Space bar (fireball)
+        // Space bar (fireball <- Needs to be possible given a specific item
         if (!gameManager.GameStopped && Input.GetKeyDown(KeyCode.Space)) 
         {
             Instantiate(fireball,new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
