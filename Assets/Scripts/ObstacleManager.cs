@@ -23,16 +23,15 @@ public class ObstacleManager : MonoBehaviour
 
     private void Update()
     {
-        // Move the object based on speedOfObstacles
-        transform.position += new Vector3 (gameManager.speedOfObstacles * Time.deltaTime, 0f, 0f);
-
-        // Record distance and update
         if (!gameManager.GameStopped)
         {
-            gameManager.distanceTravelled+=Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(startLocation.x,0));
-            gameManager.UIDistanceTravelled.text = "Distance travelled: "+Mathf.Round(gameManager.distanceTravelled).ToString();
+            // Move the object based on speedOfObstacles
+            transform.position += new Vector3(gameManager.speedOfObstacles * Time.deltaTime, 0f, 0f);
+
+            // Record distance and update
+            gameManager.distanceTravelled += Vector2.Distance(new Vector2(transform.position.x, 0), new Vector2(startLocation.x, 0));
+            gameManager.UIDistanceTravelled.text = "Distance travelled: " + Mathf.Round(gameManager.distanceTravelled).ToString();
         }
-            
         if (transform.position.x < -3.8f || transform.position.y > 2f || transform.position.y < -2f || transform.position.x > 4.8f)
         {
             ScoreUpdaterAndSpawner();

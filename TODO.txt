@@ -1,0 +1,2 @@
+redraw the relation between credits and advertise
+Advertise should only show if there are 0 credits remaining (?)

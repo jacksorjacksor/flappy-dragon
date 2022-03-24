@@ -15,9 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/02_Idle.unity
     guid: 30b147b74c57ec04dbd6d3e083e4d8e0
   - enabled: 1
-    path: Assets/Scenes/03_Gameplay.unity
+    path: Assets/Scenes/02_Gameplay.unity
     guid: b2b18077c4f51d84eaee3e4720b3bac3
   - enabled: 1
-    path: Assets/Scenes/04_Score.unity
+    path: Assets/Scenes/03_Score.unity
     guid: e8534a9bd24a99248b0193be650e2921
   m_configObjects: {}
